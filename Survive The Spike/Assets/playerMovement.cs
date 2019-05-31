@@ -29,11 +29,7 @@ public class playerMovement : MonoBehaviour
     void Update()
     {
         
-        if (!once) {
-            StartCoroutine(alterMoveSpeed(1, 200,5, false));
-            once = true;
-        }
-        Debug.Log(movementSpeed);
+        
 
         moveInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         moveVelocity = movementSpeed * moveInput;
