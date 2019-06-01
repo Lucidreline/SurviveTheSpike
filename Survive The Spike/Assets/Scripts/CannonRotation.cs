@@ -19,7 +19,7 @@ public class CannonRotation : MonoBehaviour
     void Update()
     {
         if(target == null) {
-            Debug.Log("Can't Find game object with the tag: " + targetTag);
+            Debug.LogError("Can't Find game object with the tag: " + targetTag);
             return;
         }
 
