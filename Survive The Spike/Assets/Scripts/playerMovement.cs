@@ -2,15 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody2D))]
 public class playerMovement : MonoBehaviour
 {
-    bool isLeaching = false;
-    float playerMovementSpeed = 5;
     Rigidbody2D rb;
 
     [Header("Movement")]
     [Range(1, 30)]
-    
+    [SerializeField] float playerMovementSpeed = 5;
     Vector2 moveInput, moveVelocity, zeroVector = Vector2.zero;
 
     [Range(0, 1)]
@@ -25,7 +24,8 @@ public class playerMovement : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        
+        if (rb == null)
+            Debug.LogError("Can't find a RigidBody for player movement");
     }
 
 
@@ -44,34 +44,28 @@ public class playerMovement : MonoBehaviour
     }
 
     public IEnumerator MovementLeach(float multiply, float add, int effectDurration, bool ispermanent, Transform _projectile = null) {
-
-        if (!isLeaching) {
-            if (ispermanent) {
-                playerMovementSpeed *= multiply;
-                playerMovementSpeed += add;
-                yield return false;
-            }
-            else {
-                float ogMovementSpeed = playerMovementSpeed;
-                float targetMovementSpeed = (playerMovementSpeed * multiply) + add;
-
-                playerMovementSpeed = targetMovementSpeed;
-
-                isLeaching = true;
-                Debug.Log("Leaching");
-                yield return new WaitForSeconds(effectDurration);
-                isLeaching = false;
-                Destroy(_projectile.gameObject);
-                Debug.Log("UNleaching");
-                playerMovementSpeed = ogMovementSpeed;
-            }
-        }
-        else {
-            Destroy(_projectile.gameObject);
+        if (ispermanent) {
+            playerMovementSpeed *= multiply;
+            playerMovementSpeed += add;
+            //permanently alters the speed
             yield return false;
         }
+        else {
+            float ogMovementSpeed = playerMovementSpeed;
+            //saves the original speed so we could get it back
+            float targetMovementSpeed = (playerMovementSpeed * multiply) + add;
+            //creates a temp target speed
 
-        
-        
+            playerMovementSpeed = targetMovementSpeed;
+            //changed the player speed
+
+            yield return new WaitForSeconds(effectDurration);
+            //waits X seconds
+
+            Destroy(_projectile.gameObject);
+            //add the cool destroy projectile effect
+            playerMovementSpeed = ogMovementSpeed;
+            //returns movement speed to the original speed
+        }  
     }
 }

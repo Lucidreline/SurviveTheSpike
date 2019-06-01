@@ -4,23 +4,22 @@ using UnityEngine;
 
 public class CannonRotation : MonoBehaviour
 {
-    [SerializeField] int rotationOffset = 0;
     Transform target;
+    [SerializeField] string targetTag = "Player";
+    [SerializeField] int rotationOffset = 0;
+    //Idealy, the Cannon should point to the right by default... but if its not then you would add some offset.
     [SerializeField] bool isEnemyTurret;
 
-    // Start is called before the first frame update
     void Awake()
     {
-        if (isEnemyTurret) {
-            target =  GameObject.FindGameObjectWithTag("Player").transform;
-        }
+        if (isEnemyTurret)
+            target =  GameObject.FindGameObjectWithTag(targetTag).transform;
     }
 
-    // Update is called once per frame
     void Update()
     {
         if(target == null) {
-            Debug.Log("Cant find 'Player' tag!");
+            Debug.Log("Can't Find game object with the tag: " + targetTag);
             return;
         }
 
