@@ -6,7 +6,6 @@ using UnityEngine;
 public class playerMovement : MonoBehaviour
 {
     Rigidbody2D rb;
-    projectile projectileScript;
 
     [Header("Movement")]
     [Range(1, 30)]
@@ -24,18 +23,14 @@ public class playerMovement : MonoBehaviour
     
     void Start()
     {
-        projectileScript = FindObjectOfType<projectile>();
         rb = GetComponent<Rigidbody2D>();
         if (rb == null)
             Debug.LogError("Can't find a RigidBody for player movement");
-        if (projectileScript == null)
-            Debug.LogError("Can't find a reference to projectile");
     }
 
 
     void Update()
     {
-        //Debug.Log("Movement Speed: " + playerMovementSpeed);
         moveInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         moveVelocity = playerMovementSpeed * moveInput;
     }
@@ -67,7 +62,7 @@ public class playerMovement : MonoBehaviour
             yield return new WaitForSeconds(effectDurration);
             //waits X seconds
 
-            StartCoroutine(projectileScript.fadeOut(_projectile));
+            Destroy(_projectile.gameObject);
             //add the cool destroy projectile effect
             playerMovementSpeed = ogMovementSpeed;
             //returns movement speed to the original speed

@@ -28,17 +28,13 @@ public class Shooting : MonoBehaviour
 
         yield return new WaitForSeconds(_fireRate);
 
-        clone = Instantiate(projectile, firePoint.position, firePoint.rotation);
+        GameObject clone = Instantiate(projectile, firePoint.position, firePoint.rotation);
         clone.GetComponent<Rigidbody2D>().velocity = transform.TransformDirection(Vector2.down * projectileSpeed);
-        
         //Spawns a projectile and then adds velocity to it.
         //NOTE: if the bullet is firing in a weird direction, change the "vector.down"
 
         StartCoroutine(TurretFire(fireRate, fireRateAddedRandomness));
         //Calls this method again, basicly looping
     }
-    public void callLeach() {
-        FindObjectOfType<gameMaster>().Leach(5, 2, 0.1f, 0, false, clone.transform);
-    }
-    GameObject clone;
+
 }

@@ -6,15 +6,13 @@ public class gameMaster : MonoBehaviour
 {
     Player playerScript;
     playerMovement playerMovementScript;
-    projectile projectileScript;
 
     bool isLeaching = false;
     //this bool is used to make sure that leaching is not overlapped (called again before it is finished)
 
     private void Awake() {
-        playerScript         = FindObjectOfType<Player>();
+        playerScript = FindObjectOfType<Player>();
         playerMovementScript = FindObjectOfType<playerMovement>();
-        projectileScript     = FindObjectOfType<projectile>();
     }
 
     private void Start() {
@@ -23,9 +21,6 @@ public class gameMaster : MonoBehaviour
 
         if (playerMovementScript == null) 
             Debug.LogError("Can't find object of type: playerMovement");
-
-        if (projectileScript == null) 
-            Debug.LogError("Can't find object of type: projectile");
     }
 
 
@@ -33,20 +28,19 @@ public class gameMaster : MonoBehaviour
         if (!isLeaching) {
             StartCoroutine(playerScript.DamageLeach(2, durration));
             StartCoroutine(playerMovementScript.MovementLeach(moveMultiply, moveAdd, durration, ispermanent, projectile));
-            StartCoroutine(isLeachAndFadeControl(durration, projectile));
+            StartCoroutine(isLeachControl(durration));
         } else {
-            Debug.Log("!LEACHING");
-            StartCoroutine(projectileScript.fadeOut(projectile));
+            Destroy(projectile.gameObject);
+            //make them have a small explosion or some effect
         }
 
         
         
     }
 
-    IEnumerator isLeachAndFadeControl(int durration, Transform _projectile) {
+    IEnumerator isLeachControl(int durration) {
         isLeaching = true;
         yield return new WaitForSeconds(durration);
         isLeaching = false;
-        StartCoroutine(projectileScript.fadeOut(_projectile));
     }
 }
