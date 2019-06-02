@@ -1,13 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class Player : MonoBehaviour
 {
     [SerializeField] int health = 100;
+    [SerializeField] TextMeshProUGUI healthText;
 
     void Update(){
         //Debug.Log("HEALTH: " + health);
+        healthText.text = health.ToString();
     }
 
     public void DamagePlayer(int _damage) {
