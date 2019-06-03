@@ -1810,6 +1810,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b205cb0ba3e526042b3838db4205e393, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerMovementSpeed: 5
   movementSmoothing: 0.2
   clampWidth: 10.2
   clampHeight: 5.5
@@ -2624,12 +2625,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edec4e4bfb4f31f40873fa878f78a4b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  firePoint: {fileID: 1435371803}
   projectile: {fileID: 1982688271928133021, guid: b1ce5a63fe4d9eb418b47c0b8f781c94,
     type: 3}
   projectileSpeed: 20
   fireRate: 2
   fireRateAddedRandomness: 2
-  firePoint: {fileID: 1435371803}
 --- !u!1 &1378456710
 GameObject:
   m_ObjectHideFlags: 0
@@ -2734,7 +2735,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.16, y: 0.16}
+  m_Size: {x: 0.13, y: 0.13}
   m_EdgeRadius: 0
 --- !u!1 &1385068008
 GameObject:
@@ -3644,6 +3645,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bba45af8e195094fa882c0b9385b3d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  targetTag: Player
   rotationOffset: 90
   isEnemyTurret: 1
 --- !u!212 &1729434790
@@ -4233,11 +4235,6 @@ PrefabInstance:
     - target: {fileID: 6594218761437527473, guid: b1ce5a63fe4d9eb418b47c0b8f781c94,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4591903204595223377, guid: b1ce5a63fe4d9eb418b47c0b8f781c94,
-        type: 3}
-      propertyPath: m_Constraints
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

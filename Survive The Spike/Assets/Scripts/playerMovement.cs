@@ -62,8 +62,8 @@ public class playerMovement : MonoBehaviour
             yield return new WaitForSeconds(effectDurration);
             //waits X seconds
 
-            Destroy(_projectile.gameObject);
-            //add the cool destroy projectile effect
+            //Destroy(_projectile.gameObject);
+            //Debug.Log(_projectile.gameObject.name + " Destroyed because leaching has ended");
             playerMovementSpeed = ogMovementSpeed;
             //returns movement speed to the original speed
         }  

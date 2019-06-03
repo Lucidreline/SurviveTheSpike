@@ -20,6 +20,7 @@ public class projectile : MonoBehaviour
         if(collision.collider.tag == "Projectile" && !hitAnother) {
             hitAnother = true;
             Destroy(gameObject);
+            Debug.Log(gameObject.name + " Destroyed because it hit another projectile");
             return;
         // if a projectile hits another projectile that is on the player then it will be destroyed
         }
@@ -38,6 +39,8 @@ public class projectile : MonoBehaviour
             }
         } 
     }
-
+    public void destroySelf() {
+        Destroy(gameObject);
+    }
 }
 
