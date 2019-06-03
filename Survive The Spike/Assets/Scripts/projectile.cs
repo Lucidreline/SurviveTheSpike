@@ -16,6 +16,7 @@ public class projectile : MonoBehaviour
         pMovement = FindObjectOfType<playerMovement>();
     }
 
+
     void OnCollisionEnter2D(Collision2D collision) {
         if(collision.collider.tag == "Projectile" && !hitAnother) {
             hitAnother = true;
@@ -42,5 +43,6 @@ public class projectile : MonoBehaviour
     public void destroySelf() {
         Destroy(gameObject);
     }
+
 }
 
