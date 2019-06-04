@@ -12,6 +12,8 @@ public class playerMovement : MonoBehaviour
     [SerializeField] float playerMovementSpeed = 5;
     Vector2 moveInput, moveVelocity, zeroVector = Vector2.zero;
 
+    [SerializeField] int rotationOffset = 45 + 90;
+
     [Range(0, 1)]
     [SerializeField] float movementSmoothing = .15f;
 
@@ -31,6 +33,7 @@ public class playerMovement : MonoBehaviour
 
     void Update()
     {
+        RotateToMouse();
         moveInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         moveVelocity = playerMovementSpeed * moveInput;
     }
@@ -41,6 +44,14 @@ public class playerMovement : MonoBehaviour
         transform.position = new Vector3(clampedX, clampedY, transform.position.z);
         rb.velocity = Vector2.SmoothDamp(rb.velocity, moveVelocity, ref zeroVector, movementSmoothing);
         
+    }
+
+    void RotateToMouse() {
+        Vector3 difference = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
+        difference.Normalize();     // makes all sum of vector = to 1;
+
+        float rotationZ = Mathf.Atan2(difference.y, difference.x) * Mathf.Rad2Deg; //finding the angle in degrees
+        transform.rotation = Quaternion.Euler(0f, 0f, rotationZ + rotationOffset);
     }
 
     public IEnumerator MovementLeach(float multiply, float add, int effectDurration, bool ispermanent, Transform _projectile = null) {
