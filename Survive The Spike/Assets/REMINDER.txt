@@ -1,0 +1,4 @@
+1. Remember to add a public 'AddCoin(int ammount)' so that when an enemy is killed, coins could be awarded.
+	In game master
+
+2. Add animation for the enemies so that it slightly rotates on the z a few degrees and then back on a loop so it looks like it is really walking towards you
