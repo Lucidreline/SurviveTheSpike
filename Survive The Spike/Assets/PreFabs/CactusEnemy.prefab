@@ -112,6 +112,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   version: 1
+  attackRange: 2.09
+  whatIsFriendly:
+    serializedVersion: 2
+    m_Bits: 5120
   target: {fileID: 0}
 --- !u!95 &6679294251339527317
 Animator:

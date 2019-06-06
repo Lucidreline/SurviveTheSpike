@@ -14,12 +14,46 @@ namespace Pathfinding {
 	[UniqueComponent(tag = "ai.destination")]
 	[HelpURL("http://arongranberg.com/astar/docs/class_pathfinding_1_1_a_i_destination_setter.php")]
 	public class AIDestinationSetter : VersionedMonoBehaviour {
-		/// <summary>The object that the AI should move to</summary>
+        /// <summary>The object that the AI should move to</summary>
+        float targetSearchInterval = 0.5f;
+        float timeToSearch = 0;
+
+
+        [SerializeField] float attackRange = 3f;
+        [SerializeField] LayerMask whatIsFriendly;
+
+        Transform player;
 		public Transform target;
 		IAstarAI ai;
 
         private void Start() {
-            target = GameObject.FindGameObjectWithTag("Player").transform;
+            player = GameObject.FindGameObjectWithTag("Player").transform;
+            target = player;
+        }
+
+        void Update() {
+
+            SearchForTarget();
+
+
+            if (target != null && ai != null) ai.destination = target.position;
+        }
+
+        void SearchForTarget() {
+            Collider2D[] thingsToAttack = Physics2D.OverlapCircleAll(transform.position, attackRange, whatIsFriendly);
+            if (thingsToAttack.Length > 0) {
+                target = thingsToAttack[0].transform;
+                Debug.Log("Found");
+                //make sure all targets have a 2D collider
+
+            } else {
+                target = player;
+            }
+            
+        }
+        private void OnDrawGizmosSelected() {
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(transform.position, attackRange);
         }
 
         void OnEnable () {
@@ -36,8 +70,6 @@ namespace Pathfinding {
 		}
 
 		/// <summary>Updates the AI's destination every frame</summary>
-		void Update () {
-			if (target != null && ai != null) ai.destination = target.position;
-		}
+		
 	}
 }

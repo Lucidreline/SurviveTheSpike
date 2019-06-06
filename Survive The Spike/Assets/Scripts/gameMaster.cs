@@ -18,12 +18,17 @@ public class gameMaster : MonoBehaviour
     [SerializeField] Transform rightSpawnMarker;
     [SerializeField] Transform bottomSpawnMarker;
     [SerializeField] Transform leftSpawnMarker;
+
+    float topSpawnMarkerYPos;
+    float rightSpawnMarkerXPos;
+    float bottomSpawnMarkerYPos;
+    float leftSpawnMarkerXPos;
     
     [SerializeField] int maxNumOfLiveEnemies = 0;
     [SerializeField] int liveEnemyCount = 0;
 
-    [SerializeField] float maxEnemySpawnWidth = 5;
-    [SerializeField] float maxEnemySpawnHeight = 5;
+    [SerializeField] float enemySpawnWidth = 5;
+    [SerializeField] float enemySpawnHeight = 5;
 
     [SerializeField] float EnemySpawnRate = 1.5f;
     float timeToSpawnEnemy = 0;
@@ -69,6 +74,11 @@ public class gameMaster : MonoBehaviour
             Debug.LogError("Can't find reference to bottom marker");
         if (leftSpawnMarker == null)
             Debug.LogError("Can't find reference to left marker");
+
+        topSpawnMarkerYPos    = topSpawnMarker.position.y;
+        rightSpawnMarkerXPos  = rightSpawnMarker.position.x;
+        bottomSpawnMarkerYPos = bottomSpawnMarker.position.y;
+        leftSpawnMarkerXPos   = leftSpawnMarker.position.x;
 
     }
 
@@ -133,37 +143,35 @@ public class gameMaster : MonoBehaviour
         if(liveEnemyCount < maxNumOfLiveEnemies) {
 
             AddToLiveEnemyCounter(1);
+                //Adds one to the enemy live counter. For population Control.
             //Step 2: Choose which side the enemy will spawn. (Left, right, top, bottom)
             int whichSide = Random.Range(1, 5);
             Debug.Log(whichSide);
             //Step 3: Choose where on that side the enemie will spawn.
-            float xPos = Random.Range(-maxEnemySpawnWidth, maxEnemySpawnWidth);
-            float yPos = Random.Range(-maxEnemySpawnHeight, maxEnemySpawnHeight);
-            Vector3 spawnPos = new Vector3(xPos, topSpawnMarker.position.y, topSpawnMarker.position.z);
+            float randXPos = Random.Range(leftSpawnMarkerXPos, rightSpawnMarkerXPos);
+            float randYPos = Random.Range(bottomSpawnMarkerYPos, topSpawnMarkerYPos);
+            Vector3 spawnPos = new Vector3(randXPos, topSpawnMarkerYPos, topSpawnMarker.position.z);
                 //added a default just incase;
 
             if (whichSide == 1) {
                 //TOP
-                spawnPos = new Vector3(xPos, topSpawnMarker.position.y, topSpawnMarker.position.z);
+                spawnPos = new Vector3(randXPos, topSpawnMarkerYPos, topSpawnMarker.position.z);
             }
             else if (whichSide == 2) {
                 //RIGHT
-                spawnPos = new Vector3(rightSpawnMarker.position.x, yPos, rightSpawnMarker.position.z);
+                spawnPos = new Vector3(rightSpawnMarkerXPos, randYPos, rightSpawnMarker.position.z);
             }
             else if (whichSide == 3) {
                 //BOTTOM
-                spawnPos = new Vector3(xPos, bottomSpawnMarker.position.y, bottomSpawnMarker.position.z);
+                spawnPos = new Vector3(randXPos, bottomSpawnMarkerYPos, bottomSpawnMarker.position.z);
             }
             else if (whichSide == 4) {
                 //LEFT
-                spawnPos = new Vector3(leftSpawnMarker.position.x, yPos, leftSpawnMarker.position.z);
+                spawnPos = new Vector3(leftSpawnMarkerXPos, randYPos, leftSpawnMarker.position.z);
             }
-
 
             //Step 4: Spawn Enemy
             Instantiate(enemyPrefab, spawnPos, Quaternion.identity);
-            
-
         }
 
     }
