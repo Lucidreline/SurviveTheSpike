@@ -466,7 +466,9 @@ namespace Pathfinding {
 			AstarPath.StartPath(path);
 		}
 
-
+        void DestroySelf() {
+            Destroy(gameObject);
+        }
 		/// <summary>Draws gizmos for the Seeker</summary>
 		public void OnDrawGizmos () {
 			if (lastCompletedNodePath == null || !drawGizmos) {

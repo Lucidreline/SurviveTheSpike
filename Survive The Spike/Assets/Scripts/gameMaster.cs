@@ -45,10 +45,14 @@ public class gameMaster : MonoBehaviour
         //coinCount = (int)(Mathf.Floor(Time.time) * .25f);
         
         if(Time.time > timeToAddCoin) {
-            coinCount++;
+            addCoins(1);
             timeToAddCoin = addCoinInterval + Time.time;
         }
 
+    }
+
+    public void addCoins(int ammount) {
+        coinCount += ammount;
     }
 
     public void Leach(int durration, int damageASec, float moveMultiply, int moveAdd, bool ispermanent, Transform projectile = null){

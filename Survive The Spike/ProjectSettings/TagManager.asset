@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Shredder
   - Projectile
+  - Enemies
   layers:
   - Default
   - TransparentFX
@@ -18,7 +19,7 @@ TagManager:
   - Enemy Turret
   - Enemy Projectile
   - Player
-  - 
+  - Enemy
   - 
   - 
   - 
