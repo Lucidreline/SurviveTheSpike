@@ -146,7 +146,6 @@ public class gameMaster : MonoBehaviour
                 //Adds one to the enemy live counter. For population Control.
             //Step 2: Choose which side the enemy will spawn. (Left, right, top, bottom)
             int whichSide = Random.Range(1, 5);
-            Debug.Log(whichSide);
             //Step 3: Choose where on that side the enemie will spawn.
             float randXPos = Random.Range(leftSpawnMarkerXPos, rightSpawnMarkerXPos);
             float randYPos = Random.Range(bottomSpawnMarkerYPos, topSpawnMarkerYPos);

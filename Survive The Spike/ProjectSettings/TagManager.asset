@@ -7,6 +7,8 @@ TagManager:
   - Shredder
   - Projectile
   - Enemies
+  - Bow
+  - Sword
   layers:
   - Default
   - TransparentFX
@@ -20,10 +22,10 @@ TagManager:
   - Enemy Projectile
   - Player
   - Enemy
-  - Player Turret
-  - 
-  - 
-  - 
+  - Bow
+  - Arrow
+  - Walls
+  - Sword
   - 
   - 
   - 
@@ -49,4 +51,7 @@ TagManager:
     locked: 0
   - name: Player
     uniqueID: 356140927
+    locked: 0
+  - name: Walls
+    uniqueID: 1663559767
     locked: 0

@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class friendlyTurret : MonoBehaviour
+public class Bow : MonoBehaviour
 {
-    
 
-    
+    [Header("Stats")]
+    [SerializeField] int health = 100;
 
     [Header("Aiming")]
     [SerializeField] Transform target;
@@ -29,12 +29,21 @@ public class friendlyTurret : MonoBehaviour
 
 
 
-    void Start()
-    {
-        
+    public void DamageBow(int damage) {
+        health -= damage;
     }
 
+    void BowDeath() {
+        Destroy(gameObject);
+        //make this cooler
+    }
+
+
     void Update() {
+        if (health <= 0)
+            BowDeath();
+
+
         if (!currentTarget) {
             SearchForTarget();
         } else {
@@ -77,14 +86,9 @@ public class friendlyTurret : MonoBehaviour
             GameObject ArrowClone = Instantiate(arrowPrefab, firePoint.position, firePoint.rotation);
             ArrowClone.GetComponent<Rigidbody2D>().velocity = transform.TransformDirection(Vector2.up * (arrowSpeed * 100) * Time.deltaTime);
 
-            Debug.Log("PEW PEW");
             timeToFire = fireRate + Time.time;  
         }
     }
-    //if target = null then dont do any shooting, else search for target
-    //if a target is found, put it in a variable and keep in in a while loop until he isnt in radius or he died
-
-    //have a isTarget bool. if this bool is false then nothing will happen until it is true again
 
     private void OnDrawGizmosSelected() {
         Gizmos.color = Color.red;

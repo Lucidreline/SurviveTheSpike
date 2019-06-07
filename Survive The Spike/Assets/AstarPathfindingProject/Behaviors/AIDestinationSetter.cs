@@ -43,7 +43,6 @@ namespace Pathfinding {
             Collider2D[] thingsToAttack = Physics2D.OverlapCircleAll(transform.position, attackRange, whatIsFriendly);
             if (thingsToAttack.Length > 0) {
                 target = thingsToAttack[0].transform;
-                Debug.Log("Found");
                 //make sure all targets have a 2D collider
 
             } else {

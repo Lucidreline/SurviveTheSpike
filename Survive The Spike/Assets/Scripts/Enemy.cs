@@ -8,6 +8,9 @@ public class Enemy : MonoBehaviour
     [SerializeField] GameObject enemyExposion;
     [SerializeField] GameObject hitMarker;
 
+    int damageToPlayer = 3;
+    int damageToTurret = 10;
+
     bool explodeOnce = false;
     bool dead = false;
     //These bools are so stuff only gets called once and not twice by mistake
@@ -23,11 +26,33 @@ public class Enemy : MonoBehaviour
 
 
     private void OnCollisionEnter2D(Collision2D collision) {
-        if(collision.collider.tag == "Player") {
+        if(collision.collider.tag == "bow") {
+            Debug.Log("BOOOOOOOWWW");
+        }
+
+
+        if (collision.collider.tag == "Player") {
             //Enemie died because it touched
             transform.parent.GetComponent<Animator>().SetTrigger("startSlowDeath");
-            FindObjectOfType<Player>().DamagePlayer(3);
+            //Enemies are destroyed in the annimation
+
             if (!dead) {
+                //FindObjectOfType<Player>().DamagePlayer(3);
+                collision.collider.transform.parent.GetComponent<Player>().DamagePlayer(damageToPlayer);
+                dead = true;
+                FindObjectOfType<gameMaster>().AddToLiveEnemyCounter(-1);
+            }
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision) {
+        if(collision.tag == "Bow") {
+            //Enemie died because it touched Bow
+            transform.parent.GetComponent<Animator>().SetTrigger("startSlowDeath");
+            //Enemies are destroyed in the annimation
+
+            if (!dead) {
+                collision.GetComponent<Bow>().DamageBow(damageToTurret);
                 dead = true;
                 FindObjectOfType<gameMaster>().AddToLiveEnemyCounter(-1);
             }

@@ -18,10 +18,10 @@ public class projectile : MonoBehaviour
 
 
     void OnCollisionEnter2D(Collision2D collision) {
-        if((collision.collider.tag == "Projectile" || collision.collider.tag == "Enemies") && !hitAnother) {
+        if(collision.collider.tag != "Player" && !hitAnother) {
             hitAnother = true;
             Destroy(gameObject);
-            Debug.Log(gameObject.name + " Destroyed because it hit another projectile");
+            Debug.Log(gameObject.name + " Destroyed because it a non target");
             return;
         // if a projectile hits another projectile that is on the player then it will be destroyed
         }
