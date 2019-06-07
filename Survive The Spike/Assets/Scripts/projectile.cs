@@ -18,7 +18,7 @@ public class projectile : MonoBehaviour
 
 
     void OnCollisionEnter2D(Collision2D collision) {
-        if(collision.collider.tag == "Projectile" && !hitAnother) {
+        if((collision.collider.tag == "Projectile" || collision.collider.tag == "Enemies") && !hitAnother) {
             hitAnother = true;
             Destroy(gameObject);
             Debug.Log(gameObject.name + " Destroyed because it hit another projectile");

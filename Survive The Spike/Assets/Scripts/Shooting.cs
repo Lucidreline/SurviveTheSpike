@@ -29,7 +29,7 @@ public class Shooting : MonoBehaviour
         yield return new WaitForSeconds(_fireRate);
 
         GameObject clone = Instantiate(projectile, firePoint.position, firePoint.rotation);
-        clone.GetComponent<Rigidbody2D>().velocity = transform.TransformDirection(Vector2.down * projectileSpeed);
+        clone.GetComponent<Rigidbody2D>().velocity = transform.TransformDirection(Vector2.down * (projectileSpeed * 100) * Time.deltaTime);
         //Spawns a projectile and then adds velocity to it.
         //NOTE: if the bullet is firing in a weird direction, change the "vector.down"
 
