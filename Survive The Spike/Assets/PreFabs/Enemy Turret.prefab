@@ -48,8 +48,8 @@ MonoBehaviour:
   projectile: {fileID: 1982688271928133021, guid: b1ce5a63fe4d9eb418b47c0b8f781c94,
     type: 3}
   projectileSpeed: 20
-  fireRate: 6
-  fireRateAddedRandomness: 2
+  fireRate: 8
+  fireRateAddedRandomness: 10
 --- !u!1 &34705795086223459
 GameObject:
   m_ObjectHideFlags: 0
@@ -150,7 +150,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 754534275
-  m_SortingLayer: 1
+  m_SortingLayer: 2
   m_SortingOrder: 1
   m_Sprite: {fileID: -1879570272764340391, guid: 2c99022718c798f40b9b7304bfc8767b,
     type: 3}
@@ -288,7 +288,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 754534275
-  m_SortingLayer: 1
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 7887129946981314325, guid: 2c99022718c798f40b9b7304bfc8767b,
     type: 3}
