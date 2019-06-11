@@ -9,6 +9,7 @@ TagManager:
   - Enemies
   - Bow
   - Sword
+  - Enemy Turret
   layers:
   - Default
   - TransparentFX
@@ -60,4 +61,7 @@ TagManager:
     locked: 0
   - name: Projectile
     uniqueID: 1264385887
+    locked: 0
+  - name: UI
+    uniqueID: 4125631485
     locked: 0

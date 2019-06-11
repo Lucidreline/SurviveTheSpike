@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7642938702054963274}
   - component: {fileID: 7642938702054963273}
   - component: {fileID: 7642938702054963272}
+  - component: {fileID: 7642938702124676818}
   m_Layer: 0
   m_Name: TNT
   m_TagString: Untagged
@@ -101,6 +102,25 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &7642938702124676818
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7642938702054963271}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e74228454a7ab94caf1166ae5bab269, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  explosionPrefab: {fileID: 1000013462590818, guid: ecdd96beb7f93494880c052dfccf9dc1,
+    type: 3}
+  whatIsEnemy:
+    serializedVersion: 2
+    m_Bits: 2304
+  ExplosionRange: 1.25
+  damage: 750
 --- !u!1 &7642938702080849805
 GameObject:
   m_ObjectHideFlags: 0

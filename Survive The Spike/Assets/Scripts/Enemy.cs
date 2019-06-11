@@ -8,8 +8,8 @@ public class Enemy : MonoBehaviour
     [SerializeField] GameObject enemyExposion;
     [SerializeField] GameObject hitMarker;
 
-    int damageToPlayer = 3;
-    int damageToTurret = 10;
+    [SerializeField] int damageToPlayer = 3;
+    [SerializeField] int damageToTurret = 10;
 
     bool explodeOnce = false;
     bool dead = false;

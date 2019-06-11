@@ -7,6 +7,8 @@ public class Bow : MonoBehaviour
 
     [Header("Stats")]
     [SerializeField] int health = 100;
+    int maxHealth;
+    [SerializeField] RectTransform healthBarTransform;
 
     [Header("Aiming")]
     [SerializeField] Transform target;
@@ -27,7 +29,9 @@ public class Bow : MonoBehaviour
     [SerializeField] float fireRate = .5f;
     float timeToFire = 0;
 
-
+    private void Start() {
+        maxHealth = health;
+    }
 
     public void DamageBow(int damage) {
         health -= damage;
@@ -40,6 +44,8 @@ public class Bow : MonoBehaviour
 
 
     void Update() {
+        updateHealthBar();
+
         if (health <= 0)
             BowDeath();
 
@@ -88,6 +94,12 @@ public class Bow : MonoBehaviour
 
             timeToFire = fireRate + Time.time;  
         }
+    }
+
+    void updateHealthBar() {
+        
+        float healthPercent = (float)health / maxHealth;
+        healthBarTransform.localScale = new Vector3(healthPercent, healthBarTransform.localScale.y, healthBarTransform.localScale.z);
     }
 
     private void OnDrawGizmosSelected() {

@@ -47,7 +47,7 @@ MonoBehaviour:
   firePoint: {fileID: 34705795086223458}
   projectile: {fileID: 1982688271928133021, guid: b1ce5a63fe4d9eb418b47c0b8f781c94,
     type: 3}
-  projectileSpeed: 20
+  projectileSpeed: 15
   fireRate: 8
   fireRateAddedRandomness: 10
 --- !u!1 &34705795086223459
@@ -107,14 +107,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 34705795314095578}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0.52420884, w: 0.8515898}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 34705794638680757}
   m_Father: {fileID: 34705795948463987}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 63.23}
 --- !u!212 &34705795314095583
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -337,9 +337,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 34705795948463987}
+  - component: {fileID: 1518619330}
+  - component: {fileID: 1518619329}
   m_Layer: 8
   m_Name: Enemy Turret
-  m_TagString: Untagged
+  m_TagString: Enemy Turret
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -360,3 +362,46 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &1518619330
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 34705795948463984}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.67, y: 0.6}
+  m_EdgeRadius: 0
+--- !u!114 &1518619329
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 34705795948463984}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c23457fb4e9c81d439842f55a4f6cd35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 750
+  fireExplosion: {fileID: 1000011797152326, guid: acf39d9f4addf294d93fa56fa373961b,
+    type: 3}
+  cactusExplosion: {fileID: 4561939569862232449, guid: 78059eb9359989e4598da20f8b25a9e3,
+    type: 3}

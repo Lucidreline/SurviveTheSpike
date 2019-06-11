@@ -93,7 +93,7 @@ MonoBehaviour:
   maxAcceleration: -2.5
   rotationSpeed: 360
   slowdownDistance: 2.72
-  pickNextWaypointDist: 2.46
+  pickNextWaypointDist: 0.15
   endReachedDistance: 0.49
   alwaysDrawGizmos: 0
   slowWhenNotFacingTarget: 1
@@ -112,10 +112,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   version: 1
-  attackRange: 2.09
+  attackRange: 3
   whatIsFriendly:
     serializedVersion: 2
-    m_Bits: 5120
+    m_Bits: 4096
   target: {fileID: 0}
 --- !u!95 &6679294251339527317
 Animator:
@@ -261,6 +261,8 @@ MonoBehaviour:
     type: 3}
   hitMarker: {fileID: 668743849019876620, guid: e1c033b9a4c189340863e946faf2e950,
     type: 3}
+  damageToPlayer: 3
+  damageToTurret: 25
   coinReward: 3
 --- !u!50 &6521103458540869994
 Rigidbody2D:
@@ -292,7 +294,7 @@ CircleCollider2D:
   m_GameObject: {fileID: 6679294252161286662}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 03a8fafc4e80d2e4b9a5aa1ed8791a96, type: 2}
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0

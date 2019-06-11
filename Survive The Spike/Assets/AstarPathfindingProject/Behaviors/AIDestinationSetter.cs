@@ -24,6 +24,7 @@ namespace Pathfinding {
 
         Transform player;
 		public Transform target;
+        Transform bow;
 		IAstarAI ai;
 
         private void Start() {
@@ -33,6 +34,7 @@ namespace Pathfinding {
 
         void Update() {
 
+            if(bow == null)
             SearchForTarget();
 
 
@@ -42,7 +44,8 @@ namespace Pathfinding {
         void SearchForTarget() {
             Collider2D[] thingsToAttack = Physics2D.OverlapCircleAll(transform.position, attackRange, whatIsFriendly);
             if (thingsToAttack.Length > 0) {
-                target = thingsToAttack[0].transform;
+                bow = thingsToAttack[0].transform;
+                target = bow;
                 //make sure all targets have a 2D collider
 
             } else {
