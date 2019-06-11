@@ -114,6 +114,10 @@ public class gameMaster : MonoBehaviour
         coinCount += ammount;
     }
 
+    public int getCoins() {
+        return coinCount;
+    }
+
     public void Leach(int durration, int damageASec, float moveMultiply, int moveAdd, bool ispermanent, Transform projectile = null){
         
         if (!isLeaching) {

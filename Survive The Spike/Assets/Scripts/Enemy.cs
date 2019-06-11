@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    int enemyHealth = 100;
+    [SerializeField] RectTransform healthBarTransform;
+    int health = 100;
+    int maxHealth;
     [SerializeField] GameObject enemyExposion;
     [SerializeField] GameObject hitMarker;
 
@@ -18,10 +20,16 @@ public class Enemy : MonoBehaviour
 
     [SerializeField] int coinReward = 3;
 
+    private void Start() {
+        maxHealth = health;
+    }
+
     private void Update() {
-        if(enemyHealth <= 0 && !explodeOnce) {
+        if(health <= 0 && !explodeOnce) {
             KilledByPlayer(3);
         }
+
+        updateHealthBar();
     }
 
 
@@ -70,10 +78,21 @@ public class Enemy : MonoBehaviour
 
     }
 
+    void updateHealthBar() {
+
+        float healthPercent = (float)health / maxHealth;
+        if (!dead) {
+            healthBarTransform.localScale = new Vector3(healthPercent, healthBarTransform.localScale.y, healthBarTransform.localScale.z);
+        }
+        if (health <= 0) {
+            Destroy(healthBarTransform.parent.gameObject);
+        }
+    }
+
     public void TakeDamage(int damage) {
         Debug.Log("Enemie took " + damage + " Damage");
         GameObject hitMarkerClone = Instantiate(hitMarker, transform.position, Quaternion.identity);
         Destroy(hitMarkerClone, 1);
-        enemyHealth -= damage;
+        health -= damage;
     }
 }

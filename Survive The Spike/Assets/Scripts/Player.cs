@@ -8,7 +8,7 @@ public class Player : MonoBehaviour
     [SerializeField] int health = 100;
     int maxHealth;
     [SerializeField] TextMeshProUGUI healthText;
-    [SerializeField] RectTransform healthBarTransform;
+    //[SerializeField] RectTransform healthBarTransform;
 
     private void Awake() {
         if (healthText == null)
@@ -18,7 +18,7 @@ public class Player : MonoBehaviour
 
     void Update(){
         healthText.text = "Health: " + health.ToString();
-        updateHealthBar();
+        //updateHealthBar();
     }
 
     public void DamagePlayer(int _damage) {
@@ -33,8 +33,8 @@ public class Player : MonoBehaviour
         //This for loop will loop every second.
     }
 
-    void updateHealthBar() {
-        float healthPercent = (float)health / maxHealth;
-        healthBarTransform.localScale = new Vector3(healthPercent, healthBarTransform.localScale.y, healthBarTransform.localScale.z);
-    }
+    //void updateHealthBar() {
+    //    float healthPercent = (float)health / maxHealth;
+    //    //healthBarTransform.localScale = new Vector3(healthPercent, healthBarTransform.localScale.y, healthBarTransform.localScale.z);
+    //}
 }
