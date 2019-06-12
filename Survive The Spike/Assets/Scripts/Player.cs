@@ -21,6 +21,10 @@ public class Player : MonoBehaviour
         updateHealthBar();
     }
 
+    public int getHealth() {
+        return health;
+    }
+
     public void DamagePlayer(int _damage) {
         health -= _damage;
     }

@@ -83,7 +83,7 @@ public class gameMaster : MonoBehaviour
     }
 
     private void Update() {
-        coinText.text = "Coins: " + coinCount.ToString();
+        coinText.text = coinCount.ToString();
         ConstantlyAddCoins();
         if (Time.time > timeToSpawnEnemy) {
             EnemySpawning();

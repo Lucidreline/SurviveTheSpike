@@ -7,11 +7,12 @@ public class Shop : MonoBehaviour
 {
     [SerializeField] Transform player;
     //Items:
-    int coinCount;
     //Item #1
     [Header("Bomb")]
     [SerializeField] GameObject bombPrefab;
     [SerializeField] TextMeshProUGUI bombCountText;
+    [SerializeField] TextMeshProUGUI bombCountText2;
+    [SerializeField] TextMeshProUGUI bombPriceText;
     int bombCount = 0;
     int bombPrice;
 
@@ -19,6 +20,8 @@ public class Shop : MonoBehaviour
     [Header("Bow")]
     [SerializeField] GameObject bowPrefab;
     [SerializeField] TextMeshProUGUI bowCountText;
+    [SerializeField] TextMeshProUGUI bowCountText2;
+    [SerializeField] TextMeshProUGUI bowPriceText;
     int bowCount = 0;
     int bowPrice = 20;
     int bowPriceIncrease;
@@ -26,9 +29,38 @@ public class Shop : MonoBehaviour
     float bowRateOfFire;
     float bowDamage;
 
+    [Header("Health")]
+    [SerializeField] TextMeshProUGUI healthCountText;
+    int healthCount;
+
+    [Header("Coins")]
+    [SerializeField] TextMeshProUGUI coinCountText;
+    int coinCount;
+
     private void Update() {
         coinCount = FindObjectOfType<gameMaster>().getCoins();
+        healthCount = FindObjectOfType<Player>().getHealth();
         inputListener();
+        updateCountText();
+
+    }
+
+    void updateCountText() {
+        if(bombCountText2 != null) {
+            //bombCountText.text = bombCount.ToString();
+            bombCountText2.text = bombCount.ToString();
+
+            bowCountText.text = bowCount.ToString();
+            bowCountText2.text = bowCount.ToString();
+            bowPriceText.text = bowPrice.ToString();
+
+            healthCountText.text = healthCount.ToString();
+
+            coinCountText.text = coinCount.ToString();
+            
+
+        }
+        
     }
 
     public int getBowCount() {
