@@ -5,8 +5,8 @@ using TMPro;
 
 public class Player : MonoBehaviour
 {
-    [SerializeField] int health = 100;
-    int maxHealth;
+    public int health = 100;
+    public int maxHealth;
     //[SerializeField] TextMeshProUGUI healthText;
     [SerializeField] RectTransform healthBarTransform;
 
@@ -19,10 +19,6 @@ public class Player : MonoBehaviour
     void Update(){
         //healthText.text = "Health: " + health.ToString();
         updateHealthBar();
-    }
-
-    public int getHealth() {
-        return health;
     }
 
     public void DamagePlayer(int _damage) {

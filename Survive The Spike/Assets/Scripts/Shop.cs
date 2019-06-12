@@ -32,6 +32,14 @@ public class Shop : MonoBehaviour
     [Header("Health")]
     [SerializeField] TextMeshProUGUI healthCountText;
     int healthCount;
+    int healAmmount = 5;
+    [SerializeField] int healPrice = 10;
+    [SerializeField] TextMeshProUGUI healPriceText;
+
+    int IncreaseHealthMaxBy = 10;
+    [SerializeField] int increaseMaxHealthPrice = 30;
+    [SerializeField] TextMeshProUGUI increaseMaxHealthText;
+
 
     [Header("Coins")]
     [SerializeField] TextMeshProUGUI coinCountText;
@@ -39,7 +47,7 @@ public class Shop : MonoBehaviour
 
     private void Update() {
         coinCount = FindObjectOfType<gameMaster>().getCoins();
-        healthCount = FindObjectOfType<Player>().getHealth();
+        healthCount = FindObjectOfType<Player>().health;
         inputListener();
         updateCountText();
 
@@ -54,13 +62,14 @@ public class Shop : MonoBehaviour
             bowCountText2.text = bowCount.ToString();
             bowPriceText.text = bowPrice.ToString();
 
-            healthCountText.text = healthCount.ToString();
+            healthCountText.text = healthCount.ToString() + "/" + FindObjectOfType<Player>().maxHealth.ToString();
+            healPriceText.text = healPrice.ToString();
+            increaseMaxHealthText.text = increaseMaxHealthPrice.ToString();
 
             coinCountText.text = coinCount.ToString();
             
 
-        }
-        
+        }  
     }
 
     public int getBowCount() {
@@ -77,6 +86,25 @@ public class Shop : MonoBehaviour
             //Bow
             FindObjectOfType<gameMaster>().addCoins(-bowPrice);
             bowCount++;
+        }
+    }
+
+    public void heal() {
+        if(healthCount < FindObjectOfType<Player>().maxHealth && coinCount >= healPrice) {
+            FindObjectOfType<gameMaster>().addCoins(-healPrice);
+            FindObjectOfType<Player>().health += healAmmount;
+
+            if (FindObjectOfType<Player>().health > FindObjectOfType<Player>().maxHealth) {
+                FindObjectOfType<Player>().health = FindObjectOfType<Player>().maxHealth;
+            }
+            
+        }
+    }
+
+    public void inreaseMaxHealth() {
+        if(coinCount >= increaseMaxHealthPrice) {
+            FindObjectOfType<gameMaster>().addCoins(-increaseMaxHealthPrice);
+            FindObjectOfType<Player>().maxHealth += IncreaseHealthMaxBy;
         }
     }
 
