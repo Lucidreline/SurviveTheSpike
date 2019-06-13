@@ -10,7 +10,10 @@ public class playerMovement : MonoBehaviour
     [Header("Movement")]
     [Range(1, 30)]
     [SerializeField] float playerMovementSpeed = 5;
-    Vector2 moveInput, moveVelocity, zeroVector = Vector2.zero;
+    Vector3 moveInput, tilt, moveVelocity, zeroVector = Vector3.zero;
+    [SerializeField] int deviceAngle = 60;
+
+    [SerializeField] Joystick joystick;
 
     [SerializeField] int rotationOffset = 45 + 90;
 
@@ -33,17 +36,33 @@ public class playerMovement : MonoBehaviour
 
     void Update()
     {
-        RotateToMouse();
-        moveInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
-        moveVelocity = playerMovementSpeed * moveInput;
+        JoystickRotation();
+        //RotateToMouse();
+        //moveInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+        //moveVelocity = playerMovementSpeed * moveInput;
+
+        tilt = Quaternion.Euler(deviceAngle, 0, 0) * Input.acceleration * playerMovementSpeed;
+        
     }
 
     void FixedUpdate() {
         float clampedX = Mathf.Clamp(transform.position.x, -clampWidth, clampWidth);
         float clampedY = Mathf.Clamp(transform.position.y, -clampHeight, clampHeight);
         transform.position = new Vector3(clampedX, clampedY, transform.position.z);
-        rb.velocity = Vector2.SmoothDamp(rb.velocity, moveVelocity, ref zeroVector, movementSmoothing);
+        rb.velocity = Vector3.SmoothDamp(rb.velocity, tilt, ref zeroVector, movementSmoothing);
         
+    }
+
+    void JoystickRotation() {
+        Vector3 joyPos = new Vector3(joystick.Horizontal, joystick.Vertical, transform.position.z) * 5;
+        Debug.DrawLine(transform.position, transform.position + joyPos);
+        //transform.LookAt(transform.position + joyPos);
+
+        Vector3 difference = (transform.position + joyPos) - transform.position;
+        difference.Normalize();     // makes all sum of vector = to 1;
+
+        float rotationZ = Mathf.Atan2(difference.y, difference.x) * Mathf.Rad2Deg; //finding the angle in degrees
+        transform.rotation = Quaternion.Euler(0f, 0f, rotationZ + rotationOffset);
     }
 
     void RotateToMouse() {

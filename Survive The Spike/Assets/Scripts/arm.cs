@@ -13,10 +13,7 @@ public class arm : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Mouse0)) {
-            attack = true;
-            DealDamage();
-        }
+        
         Swing();
         attack = false;
     }
@@ -27,7 +24,8 @@ public class arm : MonoBehaviour
         }      
     }
 
-    void DealDamage() {
+    public void DealDamage() {
+        attack = true;
         Collider2D[] enemiesToDamage = Physics2D.OverlapCircleAll(attackPos.position, attackRange, whatIsEnemy);
         for (int i = 0; i < enemiesToDamage.Length; i++) {
             int randDamage = damage + Random.Range(-damageRandomnessOffset, damageRandomnessOffset);
