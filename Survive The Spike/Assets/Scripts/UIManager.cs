@@ -6,19 +6,17 @@ using TMPro;
 public class UIManager : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI bowCountText;
-    //Screen num 1
-    [SerializeField] GameObject pauseMenu;
-    //Screen num 2
-    [SerializeField] GameObject shopMenu;
-    [SerializeField] GameObject InGameUI;
+
+    //[SerializeField] GameObject pauseMenu;
+    //[SerializeField] GameObject shopMenu;
+    //[SerializeField] GameObject InGameUI;
+    //[SerializeField] GameObject upgradeMenu;
+    //[SerializeField] GameObject playerUpgradeMenu;
+    //[SerializeField] GameObject bowUpgradeMenu;
+
+    [SerializeField] GameObject[] screens;
 
     bool isPaused = false;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
     // Update is called once per frame
     void Update()
@@ -40,29 +38,28 @@ public class UIManager : MonoBehaviour
 
     void PauseGame() {
         Time.timeScale = 0f;
-        pauseMenu.SetActive(true);
-        InGameUI.SetActive(false);
+
+        screens[0].SetActive(false);
+        screens[1].SetActive(true);
         isPaused = true;
     }
     public void UnpauseGame() {
         Time.timeScale = 1f;
-        pauseMenu.SetActive(false);
-        shopMenu.SetActive(false);
-        InGameUI.SetActive(true);
+
+        foreach (GameObject screen in screens) {
+            screen.SetActive(false);
+        }
+
+        screens[0].SetActive(true);
+
         isPaused = false;
     }
 
-    public void SwitchPauseMenuScreen(int screenNum) {
-        pauseMenu.SetActive(false);
-        shopMenu.SetActive(false);
+    public void SwitchScreen(int screenNum) {
+        foreach(GameObject screen in screens) {
+            screen.SetActive(false);
+        }
 
-        if(screenNum == 1) {
-            pauseMenu.SetActive(true);
-        }
-        else if(screenNum == 2){
-            shopMenu.SetActive(true);
-        }
+        screens[screenNum].SetActive(true);
     }
-
-
 }
