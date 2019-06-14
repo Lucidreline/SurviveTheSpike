@@ -14,7 +14,7 @@ public class Shop : MonoBehaviour
     [SerializeField] TextMeshProUGUI bombCountText2;
     [SerializeField] TextMeshProUGUI bombPriceText;
     int bombCount = 0;
-    int bombPrice;
+    [SerializeField ]int bombPrice = 1;
 
     //Item #2
     [Header("Bow")]
@@ -48,19 +48,21 @@ public class Shop : MonoBehaviour
     private void Update() {
         coinCount = FindObjectOfType<gameMaster>().getCoins();
         healthCount = FindObjectOfType<Player>().health;
-        inputListener();
+        // inputListener();
         updateCountText();
 
     }
 
     void updateCountText() {
         if(bombCountText2 != null) {
-            //bombCountText.text = bombCount.ToString();
+            bombCountText.text = bombCount.ToString();
             bombCountText2.text = bombCount.ToString();
 
             bowCountText.text = bowCount.ToString();
             bowCountText2.text = bowCount.ToString();
             bowPriceText.text = bowPrice.ToString();
+
+            bombPriceText.text = bombPrice.ToString();
 
             healthCountText.text = healthCount.ToString() + "/" + FindObjectOfType<Player>().maxHealth.ToString();
             healPriceText.text = healPrice.ToString();
@@ -108,13 +110,17 @@ public class Shop : MonoBehaviour
         }
     }
 
-    void inputListener() {
-        if (Input.GetKeyDown(KeyCode.T)) {
-            placeItem(2);
-        }
-    }
+    //void inputListener() {
+    //    if (Input.GetKeyDown(KeyCode.T)) {
+    //        placeItem(2);
+    //    }
+    //}
 
-    void placeItem(int itemNum) {
+    public void placeItem(int itemNum) {
+        if(itemNum == 1 && bombCount > 0) {
+            bombCount--;
+            Instantiate(bombPrefab, player.position, player.rotation);
+        }
         if(itemNum == 2 && bowCount > 0) {
             bowCount--;
             Instantiate(bowPrefab, player.position, player.rotation);

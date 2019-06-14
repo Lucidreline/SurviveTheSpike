@@ -119,7 +119,7 @@ MonoBehaviour:
   whatIsEnemy:
     serializedVersion: 2
     m_Bits: 2304
-  ExplosionRange: 1.25
+  ExplosionRange: 2
   damage: 750
 --- !u!1 &7642938702080849805
 GameObject:
