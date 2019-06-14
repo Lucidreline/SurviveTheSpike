@@ -9,7 +9,7 @@ public class playerMovement : MonoBehaviour
 
     [Header("Movement")]
     [Range(1, 30)]
-    [SerializeField] float playerMovementSpeed = 5;
+    public float playerMovementSpeed = 5;
     Vector3 moveInput, joyMovementInput, joyRotationInput, moveVelocity, zeroVector = Vector3.zero;
     [SerializeField] int deviceAngle = 60;
 
@@ -59,7 +59,7 @@ public class playerMovement : MonoBehaviour
 
     void JoystickRotation() {
         
-        if(joystickRot.Horizontal > 0 || joystickRot.Vertical > 0) {
+        if(joystickRot.Horizontal > 0 || joystickRot.Vertical > 0 || joystickRot.Horizontal < 0 || joystickRot.Vertical < 0) {
             Vector3 joyPos = new Vector3(joystickRot.Horizontal, joystickRot.Vertical, transform.position.z) * 5;
             Debug.DrawLine(transform.position, transform.position + joyPos);
             //transform.LookAt(transform.position + joyPos);

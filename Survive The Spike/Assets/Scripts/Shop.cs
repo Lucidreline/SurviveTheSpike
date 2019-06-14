@@ -6,12 +6,14 @@ using TMPro;
 public class Shop : MonoBehaviour
 {
     [SerializeField] Transform player;
+    int upgradeLevelCap;
+    [SerializeField] int upgradePriceIncrease = 25;
+
     //Items:
     //Item #1
     [Header("Bomb")]
     [SerializeField] GameObject bombPrefab;
-    [SerializeField] TextMeshProUGUI bombCountText;
-    [SerializeField] TextMeshProUGUI bombCountText2;
+    [SerializeField] TextMeshProUGUI[] bombCountText;
     [SerializeField] TextMeshProUGUI bombPriceText;
     int bombCount = 0;
     [SerializeField ]int bombPrice = 1;
@@ -19,59 +21,112 @@ public class Shop : MonoBehaviour
     //Item #2
     [Header("Bow")]
     [SerializeField] GameObject bowPrefab;
-    [SerializeField] TextMeshProUGUI bowCountText;
-    [SerializeField] TextMeshProUGUI bowCountText2;
+    [SerializeField] TextMeshProUGUI[] bowCountText;
     [SerializeField] TextMeshProUGUI bowPriceText;
     int bowCount = 0;
     int bowPrice = 20;
-    int bowPriceIncrease;
-    int bowLevel;
-    float bowRateOfFire;
-    float bowDamage;
+
+    [Header("Bow Upgrades")]
+    int bowRateOfFireLevel = 0, bowDamageLevel = 0;
+
+    [Header("Rate of fire Upgrade")]
+    [SerializeField] TextMeshProUGUI bowRateOfFireLevelText;
+    [SerializeField] TextMeshProUGUI bowIncreaseRatePriceText;
+    [SerializeField] int bowIncreaseRatePrice = 5;
+    [SerializeField] int increaseRateOfFireBy = 5;
+
+    [Header("Damage Upgrade")]
+    [SerializeField] TextMeshProUGUI bowDamageLevelText;
+    [SerializeField] TextMeshProUGUI bowIncreaseDamagePriceText;
+
+    [SerializeField] int bowIncreaseDamagePrice = 5;
+    [SerializeField] int bowIncreaseDamageBy = 5;
+
 
     [Header("Health")]
-    [SerializeField] TextMeshProUGUI healthCountText;
+    [SerializeField] TextMeshProUGUI[] healthCountText;
+    [SerializeField] TextMeshProUGUI healPriceText;
+    [SerializeField] int healPrice = 10;
     int healthCount;
     int healAmmount = 5;
-    [SerializeField] int healPrice = 10;
-    [SerializeField] TextMeshProUGUI healPriceText;
-
-    int IncreaseHealthMaxBy = 10;
-    [SerializeField] int increaseMaxHealthPrice = 30;
-    [SerializeField] TextMeshProUGUI increaseMaxHealthText;
-
 
     [Header("Coins")]
-    [SerializeField] TextMeshProUGUI coinCountText;
+    [SerializeField] TextMeshProUGUI[] coinCountText;
     int coinCount;
+
+    [Header("Player Upgrades")]
+    int healthLevel = 0, movementSpeedLevel = 0, attackDamageLevel = 0;
+
+    [Header("Health Upgrade")]
+    [SerializeField] TextMeshProUGUI increaseMaxHealthPriceText;
+    [SerializeField] TextMeshProUGUI healthLevelText;
+    [SerializeField] int increaseMaxHealthPrice = 30;
+    int IncreaseHealthMaxBy = 10;
+
+    [Header("Movement Speed Upgrade")]
+    [SerializeField] TextMeshProUGUI increaseMovementSpeedPriceText;
+    [SerializeField] TextMeshProUGUI MovementLevelText;
+    [SerializeField] int increaseMovementSpeedPrice = 5;
+    [SerializeField] int increaseMovementSpeedBy = 2;
+
+    [Header("Attack Damage Upgrades")]
+    [SerializeField] TextMeshProUGUI increaseAttackDamagePriceText;
+    [SerializeField] TextMeshProUGUI attackdamageLevelText;
+    [SerializeField] int increaseAttackDamagePrice = 5;
+    [SerializeField] int increaseAttackDamageby = 10;
+
+    
 
     private void Update() {
         coinCount = FindObjectOfType<gameMaster>().getCoins();
         healthCount = FindObjectOfType<Player>().health;
         // inputListener();
         updateCountText();
-
     }
 
     void updateCountText() {
-        if(bombCountText2 != null) {
-            bombCountText.text = bombCount.ToString();
-            bombCountText2.text = bombCount.ToString();
+        
+        //Bomb Counter
+        foreach(TextMeshProUGUI bombCounter in bombCountText) {
+            bombCounter.text = bombCount.ToString();
+        }
 
-            bowCountText.text = bowCount.ToString();
-            bowCountText2.text = bowCount.ToString();
-            bowPriceText.text = bowPrice.ToString();
-
-            bombPriceText.text = bombPrice.ToString();
-
-            healthCountText.text = healthCount.ToString() + "/" + FindObjectOfType<Player>().maxHealth.ToString();
-            healPriceText.text = healPrice.ToString();
-            increaseMaxHealthText.text = increaseMaxHealthPrice.ToString();
-
-            coinCountText.text = coinCount.ToString();
+        //Bow Counter
+        foreach(TextMeshProUGUI bowCounter in bowCountText) {
+            bowCounter.text = bowCount.ToString();
+        }
             
+        //Health Counter
+        foreach(TextMeshProUGUI healthCounter in healthCountText) {
+            healthCounter.text = healthCount.ToString() + "/" + FindObjectOfType<Player>().maxHealth.ToString();
+        }
 
-        }  
+        //Coin Counter
+        foreach(TextMeshProUGUI coinCounter in coinCountText) {
+            coinCounter.text = coinCount.ToString();
+        } 
+
+        //Purchase Prices
+        healPriceText.text = healPrice.ToString();
+        bowPriceText.text = bowPrice.ToString();
+        bombPriceText.text = bombPrice.ToString();
+
+
+        //Upgrade Prices
+        increaseAttackDamagePriceText.text = increaseAttackDamagePrice.ToString();
+        increaseMovementSpeedPriceText.text = increaseMovementSpeedPrice.ToString();
+        increaseMaxHealthPriceText.text = increaseMaxHealthPrice.ToString();
+
+        bowIncreaseDamagePriceText.text = bowIncreaseDamagePrice.ToString();
+        bowIncreaseRatePriceText.text = bowIncreaseRatePrice.ToString();
+
+        //Upgrade Levels
+        attackdamageLevelText.text = attackDamageLevel.ToString();
+        MovementLevelText.text = movementSpeedLevel.ToString();
+        healthLevelText.text = healthLevel.ToString();
+
+        bowDamageLevelText.text = bowDamageLevel.ToString();
+        bowRateOfFireLevelText.text = bowRateOfFireLevel.ToString(); 
     }
 
     public int getBowCount() {
@@ -104,10 +159,36 @@ public class Shop : MonoBehaviour
     }
 
     public void inreaseMaxHealth() {
-        if(coinCount >= increaseMaxHealthPrice) {
+        if(coinCount >= increaseMaxHealthPrice && healthLevel < upgradeLevelCap) {
+            healthLevel++;
             FindObjectOfType<gameMaster>().addCoins(-increaseMaxHealthPrice);
             FindObjectOfType<Player>().maxHealth += IncreaseHealthMaxBy;
+            increaseMaxHealthPrice += upgradePriceIncrease;
         }
+    }
+
+    public void increaseMovementSpeed() {
+        if (movementSpeedLevel < upgradeLevelCap && coinCount >= increaseMovementSpeedPrice) {
+            FindObjectOfType<gameMaster>().addCoins(-increaseMovementSpeedPrice);
+            movementSpeedLevel++;
+            FindObjectOfType<playerMovement>().playerMovementSpeed += increaseMovementSpeedBy;
+            increaseMovementSpeedPrice += upgradePriceIncrease;
+
+        }
+           
+        
+    }
+
+    public void increaseAttackDamage() {
+
+    }
+
+    public void increaseBowRateOfFire() {
+
+    }
+
+    public void increaseBowDamage() {
+
     }
 
     //void inputListener() {
