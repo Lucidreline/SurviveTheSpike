@@ -36,7 +36,7 @@ public class UIManager : MonoBehaviour
             UnpauseGame();
     }
 
-    void PauseGame() {
+    public void PauseGame() {
         Time.timeScale = 0f;
 
         screens[0].SetActive(false);

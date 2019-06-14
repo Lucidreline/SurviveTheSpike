@@ -10,10 +10,12 @@ public class playerMovement : MonoBehaviour
     [Header("Movement")]
     [Range(1, 30)]
     [SerializeField] float playerMovementSpeed = 5;
-    Vector3 moveInput, tilt, moveVelocity, zeroVector = Vector3.zero;
+    Vector3 moveInput, joyMovementInput, joyRotationInput, moveVelocity, zeroVector = Vector3.zero;
     [SerializeField] int deviceAngle = 60;
 
-    [SerializeField] Joystick joystick;
+    [SerializeField] Joystick joystickMov;
+    [SerializeField] Joystick joystickRot;
+    Quaternion lastKnownRot;
 
     [SerializeField] int rotationOffset = 45 + 90;
 
@@ -28,6 +30,7 @@ public class playerMovement : MonoBehaviour
     
     void Start()
     {
+        lastKnownRot = transform.rotation;
         rb = GetComponent<Rigidbody2D>();
         if (rb == null)
             Debug.LogError("Can't find a RigidBody for player movement");
@@ -41,37 +44,44 @@ public class playerMovement : MonoBehaviour
         //moveInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         //moveVelocity = playerMovementSpeed * moveInput;
 
-        tilt = Quaternion.Euler(deviceAngle, 0, 0) * Input.acceleration * playerMovementSpeed;
-        
+        //tilt = Quaternion.Euler(deviceAngle, 0, 0) * Input.acceleration * playerMovementSpeed;
+
+        joyMovementInput = new Vector3(joystickMov.Horizontal, joystickMov.Vertical, 0) * playerMovementSpeed;
     }
 
     void FixedUpdate() {
         float clampedX = Mathf.Clamp(transform.position.x, -clampWidth, clampWidth);
         float clampedY = Mathf.Clamp(transform.position.y, -clampHeight, clampHeight);
         transform.position = new Vector3(clampedX, clampedY, transform.position.z);
-        rb.velocity = Vector3.SmoothDamp(rb.velocity, tilt, ref zeroVector, movementSmoothing);
+        rb.velocity = Vector3.SmoothDamp(rb.velocity, joyMovementInput, ref zeroVector, movementSmoothing);
         
     }
 
     void JoystickRotation() {
-        Vector3 joyPos = new Vector3(joystick.Horizontal, joystick.Vertical, transform.position.z) * 5;
-        Debug.DrawLine(transform.position, transform.position + joyPos);
-        //transform.LookAt(transform.position + joyPos);
+        
+        if(joystickRot.Horizontal > 0 || joystickRot.Vertical > 0) {
+            Vector3 joyPos = new Vector3(joystickRot.Horizontal, joystickRot.Vertical, transform.position.z) * 5;
+            Debug.DrawLine(transform.position, transform.position + joyPos);
+            //transform.LookAt(transform.position + joyPos);
 
-        Vector3 difference = (transform.position + joyPos) - transform.position;
-        difference.Normalize();     // makes all sum of vector = to 1;
+            Vector3 difference = (transform.position + joyPos) - transform.position;
+            difference.Normalize();     // makes all sum of vector = to 1;
 
-        float rotationZ = Mathf.Atan2(difference.y, difference.x) * Mathf.Rad2Deg; //finding the angle in degrees
-        transform.rotation = Quaternion.Euler(0f, 0f, rotationZ + rotationOffset);
+            float rotationZ = Mathf.Atan2(difference.y, difference.x) * Mathf.Rad2Deg; //finding the angle in degrees
+            transform.rotation = Quaternion.Euler(0f, 0f, rotationZ + rotationOffset);
+            lastKnownRot = transform.rotation;
+        } else {
+            transform.rotation = lastKnownRot;
+        }
     }
 
-    void RotateToMouse() {
-        Vector3 difference = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
-        difference.Normalize();     // makes all sum of vector = to 1;
+    //void RotateToMouse() {
+    //    Vector3 difference = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
+    //    difference.Normalize();     // makes all sum of vector = to 1;
 
-        float rotationZ = Mathf.Atan2(difference.y, difference.x) * Mathf.Rad2Deg; //finding the angle in degrees
-        transform.rotation = Quaternion.Euler(0f, 0f, rotationZ + rotationOffset);
-    }
+    //    float rotationZ = Mathf.Atan2(difference.y, difference.x) * Mathf.Rad2Deg; //finding the angle in degrees
+    //    transform.rotation = Quaternion.Euler(0f, 0f, rotationZ + rotationOffset);
+    //}
 
     public IEnumerator MovementLeach(float multiply, float add, int effectDurration, bool ispermanent, Transform _projectile = null) {
         if (ispermanent) {
