@@ -8,7 +8,7 @@ public class arm : MonoBehaviour
     [SerializeField] Transform attackPos;
     [SerializeField] float attackRange;
     [SerializeField] LayerMask whatIsEnemy;
-    [SerializeField] int damage = 50;
+    public int attackDamage = 50;
     [SerializeField] int damageRandomnessOffset = 10;
 
     void Update()
@@ -28,7 +28,7 @@ public class arm : MonoBehaviour
         attack = true;
         Collider2D[] enemiesToDamage = Physics2D.OverlapCircleAll(attackPos.position, attackRange, whatIsEnemy);
         for (int i = 0; i < enemiesToDamage.Length; i++) {
-            int randDamage = damage + Random.Range(-damageRandomnessOffset, damageRandomnessOffset);
+            int randDamage = attackDamage + Random.Range(-damageRandomnessOffset, damageRandomnessOffset);
             enemiesToDamage[i].GetComponent<Enemy>().TakeDamage(randDamage);
         }
     }

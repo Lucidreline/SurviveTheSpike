@@ -56,6 +56,11 @@ public class UIManager : MonoBehaviour
     }
 
     public void SwitchScreen(int screenNum) {
+        if(screenNum == 4) {
+            FindObjectOfType<Shop>().outsideColorChanges("Player Upgrades");
+        }else if(screenNum == 5) {
+            FindObjectOfType<Shop>().outsideColorChanges("Bow Upgrades");
+        }
         foreach(GameObject screen in screens) {
             screen.SetActive(false);
         }

@@ -26,7 +26,7 @@ public class Bow : MonoBehaviour
     [SerializeField] float arrowSpeed = 10f;
     [SerializeField] Transform firePoint;
 
-    [SerializeField] float fireRate = .5f;
+    public static float fireRate = .25f;
     float timeToFire = 0;
 
     private void Start() {
@@ -60,6 +60,10 @@ public class Bow : MonoBehaviour
             FireArrows();
             
         }
+    }
+
+    public void UpgradeFireRate(float upgradeBy) {
+        fireRate -= upgradeBy;
     }
 
     void SearchForTarget() {

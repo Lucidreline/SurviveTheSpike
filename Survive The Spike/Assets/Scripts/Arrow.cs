@@ -4,7 +4,11 @@ using UnityEngine;
 
 public class Arrow : MonoBehaviour
 {
-    [SerializeField] int damage = 10;
+    static int damage = 10;
+
+    public void upgradeDamage(int upgradeBy) {
+        damage += upgradeBy;
+    }
 
     private void OnCollisionEnter2D(Collision2D collision) {
         if(collision.collider.tag == "Enemies") {
